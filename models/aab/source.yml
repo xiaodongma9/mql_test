@@ -1,0 +1,57 @@
+version: 2
+sources:
+  - name: aab
+    tables:
+      - name: consumer
+        columns:
+          - name: country
+            meta:
+              metriql.dimension:
+                type: string
+          - name: customer_id
+            meta:
+              metriql.dimension:
+                type: string
+      - name: target_store
+        columns:
+          - name: id
+      - name: target_product
+        columns:
+          - name: id
+      - name: transaction
+        columns:
+          - name: amount_det
+            meta:
+              metriql.dimension:
+                type: double
+          - name: customer_id
+            meta:
+              metriql.dimension:
+                type: string
+          - name: day
+            meta:
+              metriql.dimension:
+                type: date
+        meta:
+          metriql:
+            measures:
+              sum_amount_det:
+                aggregation: sum
+                dimension: amount_det
+            dimensions:
+              transaction_time:
+                sql: CAST(FORMAT_DATETIME('%k%M',PARSE_DATETIME('%Y%m%d%H%M%S',{TABLE}.TRANX_DATETIME)) as INT64)
+              transcation_time_year_week:
+                sql: FORMAT_DATETIME('%Y%U',PARSE_DATETIME('%Y%m%d%H%M%S',TRANX_DATETIME ))
+#            relations:
+#              consumer:
+#                to: ref('consumer)
+#                sql: "{TABLE}.customer_id = {TARGET}.customer_id"
+#                relationship: MANY_TO_MANY
+#                type: inner_join
+
+#        filters:
+#          - measure: sum_amount_det
+#          - dimension: amount_det
+#          - dimension: hourmins
+#          - dimension: day

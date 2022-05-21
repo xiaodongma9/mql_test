@@ -1,0 +1,6 @@
+version: 2
+
+seeds:
+  - name: cs_c4_customer_audience
+    columns:
+      - name: customer_id
