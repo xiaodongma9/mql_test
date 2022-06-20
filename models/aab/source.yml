@@ -23,21 +23,16 @@ sources:
               metriql.dimension:
                 type: date
           - name: tranx_datetime
-#            meta:
-#              metriql.dimension:
-#                type: timestamp
-#                timeframes : [hour_of_day,day_of_week,week,month,year]
+            meta:
+              metriql.dimension:
+                type: timestamp
+                timeframes : [hour_of_day,day_of_week,week,month,year]
         meta:
           metriql:
             measures:
               sum_amount_det:
                 aggregation: sum
                 dimension: amount_det
-            dimensions:
-              transaction_time:
-                sql: CAST(FORMAT_DATETIME('%k%M',{TABLE}.TRANX_DATETIME) as INT64)
-              transcation_time_year_week:
-                sql: CAST(FORMAT_DATETIME('%Y%U',{TABLE}.TRANX_DATETIME) as INT64)
 
       - name: consumer
         columns:
