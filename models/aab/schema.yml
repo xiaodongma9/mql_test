@@ -1,9 +1,9 @@
-version: 2
-
-models:
-  - name: cs_c4_retail_transactions
-    columns:
-      - name: customer_id
+#version: 2
+#
+#models:
+#  - name: transaction3
+#    columns:
+#      - name: customer_id
 #    meta:
 #      metriql:
 #        relations:

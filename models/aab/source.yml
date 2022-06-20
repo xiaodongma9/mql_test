@@ -2,23 +2,13 @@ version: 2
 sources:
   - name: aab
     tables:
-      - name: consumer
-        columns:
-          - name: country
-            meta:
-              metriql.dimension:
-                type: string
-          - name: customer_id
-            meta:
-              metriql.dimension:
-                type: string
       - name: target_store
         columns:
           - name: id
       - name: target_product
         columns:
           - name: id
-      - name: transaction
+      - name: transaction3
         columns:
           - name: amount_det
             meta:
@@ -32,6 +22,11 @@ sources:
             meta:
               metriql.dimension:
                 type: date
+          - name: tranx_datetime
+#            meta:
+#              metriql.dimension:
+#                type: timestamp
+#                timeframes : [hour_of_day,day_of_week,week,month,year]
         meta:
           metriql:
             measures:
@@ -40,18 +35,25 @@ sources:
                 dimension: amount_det
             dimensions:
               transaction_time:
-                sql: CAST(FORMAT_DATETIME('%k%M',PARSE_DATETIME('%Y%m%d%H%M%S',{TABLE}.TRANX_DATETIME)) as INT64)
+                sql: CAST(FORMAT_DATETIME('%k%M',{TABLE}.TRANX_DATETIME) as INT64)
               transcation_time_year_week:
-                sql: FORMAT_DATETIME('%Y%U',PARSE_DATETIME('%Y%m%d%H%M%S',TRANX_DATETIME ))
-#            relations:
-#              consumer:
-#                to: ref('consumer)
-#                sql: "{TABLE}.customer_id = {TARGET}.customer_id"
-#                relationship: MANY_TO_MANY
-#                type: inner_join
+                sql: CAST(FORMAT_DATETIME('%Y%U',{TABLE}.TRANX_DATETIME) as INT64)
 
-#        filters:
-#          - measure: sum_amount_det
-#          - dimension: amount_det
-#          - dimension: hourmins
-#          - dimension: day
+      - name: consumer
+        columns:
+          - name: country
+            meta:
+              metriql.dimension:
+                type: string
+          - name: customer_id
+            meta:
+              metriql.dimension:
+                type: string
+        meta:
+          metriql:
+            relations:
+              consumer_transactions:
+                to: source('aab','transaction3')
+                sql: "{TABLE}.customer_id = {TARGET}.customer_id"
+                relationship: one_to_many
+                type: inner_join
