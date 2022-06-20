@@ -47,7 +47,7 @@ sources:
         meta:
           metriql:
             relations:
-              consumer_transactions:
+              transaction3:
                 to: source('aab','transaction3')
                 sql: "{TABLE}.customer_id = {TARGET}.customer_id"
                 relationship: one_to_many
