@@ -8,7 +8,7 @@ sources:
       - name: target_product
         columns:
           - name: id
-      - name: transaction3
+      - name: tranx
         columns:
           - name: amount_det
             meta:
@@ -47,8 +47,8 @@ sources:
         meta:
           metriql:
             relations:
-              transaction3:
-                to: source('aab','transaction3')
+              tranx:
+                to: source('aab','tranx')
                 sql: "{TABLE}.customer_id = {TARGET}.customer_id"
-                relationship: one_to_many
+                relationship: one_to_one
                 type: inner_join
