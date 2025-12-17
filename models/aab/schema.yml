@@ -1,14 +1,14 @@
-#version: 2
-#
-#models:
-#  - name: transaction3
-#    columns:
-#      - name: customer_id
-#    meta:
-#      metriql:
-#        relations:
-#          cs_c4_customer_audience:
-#            to: ref('cs_c4_customer_audience')
-#            sql: "{TABLE}.customer_id = {TARGET}.customer_id"
-#            type: left_join
-#            relationship: many_to_many
+version: 2
+
+models:
+ - name: transaction3
+   columns:
+     - name: customer_id
+   meta:
+     metriql:
+       relations:
+         cs_c4_customer_audience:
+           to: ref('cs_c4_customer_audience')
+           sql: "{TABLE}.customer_id = {TARGET}.customer_id"
+           type: left_join
+           relationship: many_to_many
