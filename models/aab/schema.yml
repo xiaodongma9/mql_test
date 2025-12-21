@@ -1,7 +1,7 @@
 version: 2
 
 models:
- - name: transaction3
+ - name: transaction3_1
    columns:
      - name: customer_id
    meta:
