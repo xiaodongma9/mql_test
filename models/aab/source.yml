@@ -33,7 +33,6 @@ sources:
               sum_amount_det:
                 aggregation: sum
                 dimension: amount_det
-
       - name: consumer
         columns:
           - name: country
